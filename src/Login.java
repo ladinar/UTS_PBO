@@ -130,7 +130,7 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Connection connection;
         PreparedStatement ps;
-        String 
+       
         try{
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_testkoneksi?zeroDateTimeBehavior=convertToNull","root","");
             ps = connection.prepareStatement("SELECT username, password FROM t_admin WHERE username = ? AND password= ?");

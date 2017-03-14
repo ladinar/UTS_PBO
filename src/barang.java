@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -70,6 +71,7 @@ public class barang extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         total_harga = new javax.swing.JTextField();
         Refresh1 = new javax.swing.JButton();
+        Refresh2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -190,7 +192,7 @@ public class barang extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(340, 130, 480, 120);
 
-        Refresh.setText("Refre");
+        Refresh.setText("Refresh");
         Refresh.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
             public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
                 RefreshAncestorMoved(evt);
@@ -204,7 +206,7 @@ public class barang extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Refresh);
-        Refresh.setBounds(560, 300, 80, 30);
+        Refresh.setBounds(540, 300, 80, 30);
         jPanel1.add(id_barang);
         id_barang.setBounds(40, 110, 220, 30);
 
@@ -222,9 +224,11 @@ public class barang extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(450, 300, 80, 30);
+        jButton3.setBounds(440, 300, 80, 30);
+
+        total_beli.setEnabled(false);
         jPanel1.add(total_beli);
-        total_beli.setBounds(40, 410, 220, 30);
+        total_beli.setBounds(40, 350, 220, 30);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -253,8 +257,10 @@ public class barang extends javax.swing.JFrame {
         jLabel8.setText("Total_Harga");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(40, 330, 120, 20);
+
+        total_harga.setEnabled(false);
         jPanel1.add(total_harga);
-        total_harga.setBounds(40, 350, 220, 30);
+        total_harga.setBounds(40, 410, 220, 30);
 
         Refresh1.setText("Print");
         Refresh1.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
@@ -270,7 +276,23 @@ public class barang extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Refresh1);
-        Refresh1.setBounds(670, 300, 80, 30);
+        Refresh1.setBounds(640, 300, 80, 30);
+
+        Refresh2.setText("Total");
+        Refresh2.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+                Refresh2AncestorMoved(evt);
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+            }
+        });
+        Refresh2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Refresh2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Refresh2);
+        Refresh2.setBounds(740, 300, 80, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 840, 510);
@@ -325,7 +347,7 @@ public class barang extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3AncestorMoved
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-int confirm = JOptionPane.showConfirmDialog(this, "Anda yakin Menghapus Data!","",JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(this, "Anda yakin Menghapus Data!","",JOptionPane.YES_NO_OPTION);
         int baris = DATA.getSelectedRow();
         if (confirm ==0) {
   
@@ -377,6 +399,34 @@ int confirm = JOptionPane.showConfirmDialog(this, "Anda yakin Menghapus Data!","
         // TODO add your handling code here:
     }//GEN-LAST:event_Refresh1ActionPerformed
 
+    private void Refresh2AncestorMoved(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_Refresh2AncestorMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Refresh2AncestorMoved
+
+    private void Refresh2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refresh2ActionPerformed
+        int jumlahBaris = DATA.getRowCount();
+        int totalBiaya = 0;
+        int jumlahBarang, hargaBarang;
+        TableModel tabelModel;
+        tabelModel = DATA.getModel();
+        for (int i=0; i<jumlahBaris; i++){
+        jumlahBarang = Integer.parseInt(tabelModel.getValueAt(i, 3).toString());
+        hargaBarang = Integer.parseInt(tabelModel.getValueAt(i, 2).toString());
+        totalBiaya = totalBiaya + (jumlahBarang*hargaBarang);
+        }
+        if (totalBiaya > 100000) {
+            int diskon = totalBiaya*10/100;
+            total_harga.setText(String.valueOf(totalBiaya-diskon));
+        }else
+            total_harga.setText(String.valueOf(totalBiaya));
+        
+
+        
+                    
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Refresh2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -417,6 +467,7 @@ int confirm = JOptionPane.showConfirmDialog(this, "Anda yakin Menghapus Data!","
     private javax.swing.JTable DATA;
     private javax.swing.JButton Refresh;
     private javax.swing.JButton Refresh1;
+    private javax.swing.JButton Refresh2;
     private javax.swing.JTextField harga_barang;
     private javax.swing.JTextField id_barang;
     private javax.swing.JButton jButton1;
@@ -461,7 +512,7 @@ int confirm = JOptionPane.showConfirmDialog(this, "Anda yakin Menghapus Data!","
                     Logger.getLogger(barang.class.getName()).log(Level.SEVERE,null, ex);
                     }
             DATA.setModel(dtm);            
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     private void SetJam() {
