@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,9 +30,10 @@ public class barang extends javax.swing.JFrame {
     /**
      * Creates new form barang
      */
-    public barang() {
+    public barang(String nama) {
         initComponents();
-                SetJam(); SetTanggal();
+        kasir.setText(nama);
+        SetJam(); SetTanggal();
     }
 
    
@@ -57,7 +59,7 @@ public class barang extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         label_jam = new javax.swing.JLabel();
-        nama = new javax.swing.JLabel();
+        kasir = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         label_tanggal = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -72,6 +74,9 @@ public class barang extends javax.swing.JFrame {
         total_harga = new javax.swing.JTextField();
         Refresh1 = new javax.swing.JButton();
         Refresh2 = new javax.swing.JButton();
+        cari = new javax.swing.JTextField();
+        search = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -88,7 +93,7 @@ public class barang extends javax.swing.JFrame {
         jLabel1.setBounds(260, 10, 360, 30);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 840, 50);
+        jPanel2.setBounds(0, 0, 880, 50);
         jPanel1.add(nama_barang);
         nama_barang.setBounds(40, 170, 220, 30);
         jPanel1.add(harga_barang);
@@ -106,7 +111,7 @@ public class barang extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("ID_Barang");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(40, 90, 80, 20);
+        jLabel3.setBounds(340, 110, 80, 20);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -130,11 +135,11 @@ public class barang extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(310, 50, 10, 450);
+        jPanel3.setBounds(310, 50, 10, 500);
 
         jButton1.setText("SAVE");
         jButton1.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
@@ -156,25 +161,25 @@ public class barang extends javax.swing.JFrame {
         label_jam.setForeground(new java.awt.Color(255, 255, 255));
         label_jam.setText("waktu");
         jPanel1.add(label_jam);
-        label_jam.setBounds(650, 90, 90, 30);
+        label_jam.setBounds(340, 210, 90, 30);
 
-        nama.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        nama.setForeground(new java.awt.Color(255, 255, 255));
-        nama.setText("Admin");
-        jPanel1.add(nama);
-        nama.setBounds(730, 60, 90, 10);
+        kasir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        kasir.setForeground(new java.awt.Color(255, 255, 255));
+        kasir.setText("Admin");
+        jPanel1.add(kasir);
+        kasir.setBounds(420, 180, 90, 10);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Nama Kasir :");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(650, 50, 90, 30);
+        jLabel7.setBounds(340, 170, 90, 30);
 
         label_tanggal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         label_tanggal.setForeground(new java.awt.Color(255, 255, 255));
         label_tanggal.setText("tanggal");
         jPanel1.add(label_tanggal);
-        label_tanggal.setBounds(650, 70, 90, 30);
+        label_tanggal.setBounds(340, 190, 90, 30);
 
         DATA.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -190,7 +195,7 @@ public class barang extends javax.swing.JFrame {
         jScrollPane1.setViewportView(DATA);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(340, 130, 480, 120);
+        jScrollPane1.setBounds(340, 250, 480, 120);
 
         Refresh.setText("Refresh");
         Refresh.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
@@ -206,7 +211,7 @@ public class barang extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Refresh);
-        Refresh.setBounds(540, 300, 80, 30);
+        Refresh.setBounds(550, 390, 80, 30);
         jPanel1.add(id_barang);
         id_barang.setBounds(40, 110, 220, 30);
 
@@ -224,7 +229,7 @@ public class barang extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(440, 300, 80, 30);
+        jButton3.setBounds(450, 390, 80, 30);
 
         total_beli.setEnabled(false);
         jPanel1.add(total_beli);
@@ -250,7 +255,7 @@ public class barang extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Clear);
-        Clear.setBounds(340, 300, 80, 30);
+        Clear.setBounds(340, 390, 80, 30);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -276,7 +281,7 @@ public class barang extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Refresh1);
-        Refresh1.setBounds(640, 300, 80, 30);
+        Refresh1.setBounds(650, 390, 80, 30);
 
         Refresh2.setText("Total");
         Refresh2.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
@@ -292,12 +297,29 @@ public class barang extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Refresh2);
-        Refresh2.setBounds(740, 300, 80, 30);
+        Refresh2.setBounds(750, 390, 80, 30);
+        jPanel1.add(cari);
+        cari.setBounds(340, 130, 180, 30);
+
+        search.setText("CARI");
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+        jPanel1.add(search);
+        search.setBounds(550, 130, 57, 30);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("ID_Barang");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(40, 90, 80, 20);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 840, 510);
+        jPanel1.setBounds(0, 0, 880, 550);
 
-        setBounds(0, 0, 855, 541);
+        setBounds(0, 0, 894, 587);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1AncestorMoved(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_jButton1AncestorMoved
@@ -378,6 +400,7 @@ public class barang extends javax.swing.JFrame {
        
         jumlah_barang.setText("");
         total_beli.setText("");
+        total_harga.setText("");
       
 
         // TODO add your handling code here:
@@ -427,6 +450,38 @@ public class barang extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Refresh2ActionPerformed
 
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        String serach = cari.getText();
+        
+        String kolom[]={"Id_brg","nama_brg","Harga_brg","Jumlah_brg","Total_harga"};
+        DefaultTableModel dtm = new DefaultTableModel(null, kolom);   
+        String SQL = "SELECT * FROM t_barang where id_barang='"+serach+"'";
+        ResultSet rs = KoneksiDB.executeQuery(SQL);
+        try{
+            while(rs.next()){
+                String id = rs.getString(1);
+                String nama = rs.getString(2);
+                String harga = rs.getString(3);
+                String jumlah = rs.getString(4);
+                String total = rs.getString(5);
+                    String data[] = {id,nama,harga,jumlah,total};
+                    dtm.addRow(data);
+            }
+             
+        }   catch(SQLException ex){
+                    Logger.getLogger(barang.class.getName()).log(Level.SEVERE,null, ex);
+                    }
+            DATA.setModel(dtm); 
+        if (DATA.getRowCount()<1) {
+             JOptionPane.showMessageDialog(null,"Tidak ada Data");
+             selectdata();
+             
+        }
+        else{
+            
+        }
+    }//GEN-LAST:event_searchActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -457,7 +512,8 @@ public class barang extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new barang().setVisible(true);
+                
+                new Login().setVisible(true);
             }
         });
     }
@@ -468,6 +524,7 @@ public class barang extends javax.swing.JFrame {
     private javax.swing.JButton Refresh;
     private javax.swing.JButton Refresh1;
     private javax.swing.JButton Refresh2;
+    private javax.swing.JTextField cari;
     private javax.swing.JTextField harga_barang;
     private javax.swing.JTextField id_barang;
     private javax.swing.JButton jButton1;
@@ -480,15 +537,17 @@ public class barang extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jumlah_barang;
+    private javax.swing.JLabel kasir;
     private javax.swing.JLabel label_jam;
     private javax.swing.JLabel label_tanggal;
-    private javax.swing.JLabel nama;
     private javax.swing.JTextField nama_barang;
+    private javax.swing.JButton search;
     private javax.swing.JTextField total_beli;
     private javax.swing.JTextField total_harga;
     // End of variables declaration//GEN-END:variables
@@ -551,5 +610,13 @@ public class barang extends javax.swing.JFrame {
         java.util.Date now = new java.util.Date();
         java.text.SimpleDateFormat kal = new java.text.SimpleDateFormat("yyy/MM/dd");
         label_tanggal.setText(kal.format(now));
+    }
+
+    private void koneksi() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void KoneksiDB() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
  }

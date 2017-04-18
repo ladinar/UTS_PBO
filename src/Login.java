@@ -41,11 +41,11 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        pass = new javax.swing.JTextField();
         user = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        pass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -75,8 +75,6 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText("Username");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(160, 90, 80, 30);
-        jPanel1.add(pass);
-        pass.setBounds(100, 190, 190, 40);
         jPanel1.add(user);
         user.setBounds(100, 120, 190, 40);
 
@@ -106,6 +104,8 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel1.add(jButton3);
         jButton3.setBounds(160, 250, 100, 30);
+        jPanel1.add(pass);
+        pass.setBounds(100, 190, 190, 40);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 400, 300);
@@ -130,6 +130,7 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Connection connection;
         PreparedStatement ps;
+        String username=user.getText();
        
         try{
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_testkoneksi?zeroDateTimeBehavior=convertToNull","root","");
@@ -139,7 +140,7 @@ public class Login extends javax.swing.JFrame {
             ResultSet result = ps.executeQuery();
      
             if (result.next()) {
-                new barang().show();
+                new barang(username).setVisible(true);
                 this.dispose();
             }
             else{
@@ -202,7 +203,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField pass;
+    private javax.swing.JPasswordField pass;
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }
