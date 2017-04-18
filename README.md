@@ -27,3 +27,10 @@ Apabila pembelian atau transaksi melebihi Rp 100.000 maka akan dikenakan potonga
 ![9.png](https://s15.postimg.org/tnn65oo0b/image.png)
 6.Tampilan saat Refresh<br>
 ![6.png](https://s9.postimg.org/yqezkomi7/image.png)
+7. Login dengan Nama Kasir
+![10.png](https://s21.postimg.org/t9z3y1pnb/image.png)
+![11.png](https://s10.postimg.org/jzgsrfr8p/image.png)
+8. Search 
+![12.png](https://s10.postimg.org/wpatz67u1/image.png)
+Bila Data yang di Search tidak ada maka tampilan :
+![13.png](https://s24.postimg.org/8wkzg7rxh/image.png)
